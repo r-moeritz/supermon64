@@ -1,11 +1,19 @@
+KAJAR := ~/Programs/KickAssembler/KickAss.jar
+KICKASS := java -jar $(KAJAR)
+
+.PHONY: clean
+
 supermon64.prg: relocate.prg supermon64-8000.prg supermon64-C000.prg
 	./build.py $^ $@
 
 supermon64-8000.prg: supermon64.asm
-	64tass -i $< -o $@ -DORG='$$8000'
+	$(KICKASS) -o $@ -define LOWORG $<
 
 supermon64-C000.prg: supermon64.asm
-	64tass -i $< -o $@ -DORG='$$C000'
+	$(KICKASS) -o $@ $<
 
 relocate.prg: relocate.asm
-	64tass -i $< -o $@
+	$(KICKASS) -o $@ $<
+
+clean:
+	rm -f *.prg

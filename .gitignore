@@ -1,0 +1,4 @@
+*.sym
+relocate.prg
+supermon64-8000.prg
+supermon64-C000.prg
